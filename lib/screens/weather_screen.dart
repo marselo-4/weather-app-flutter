@@ -55,6 +55,26 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
   }
 
+  Future<void> _fetchWeatherByCoordinates(double lat, double lon) async {
+    if (!mounted) return;
+
+    try {
+      final weather = await _weatherService.getWeatherByCoordinates(lat, lon);
+
+      if (!mounted) return;
+      setState(() {
+        _weather = weather;
+        _currentSearchType =
+            '${lat.toStringAsFixed(2)}, ${lon.toStringAsFixed(2)}';
+      });
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to fetch weather: $e')));
+    }
+  }
+
   void _showSearchOptions() {
     showModalBottomSheet(
       context: context,
@@ -63,6 +83,73 @@ class _WeatherScreenState extends State<WeatherScreen> {
             onCurrentLocationSelected: () => _fetchWeather(),
             onCountryCitySelected: _showCountryCityPicker,
             onCitySearchSelected: _showTypeAheadSearchDialog,
+            onCoordinateSearchSelected: _showCoordinateSearchDialog, // Add this
+          ),
+    );
+  }
+
+  void _showCoordinateSearchDialog() {
+    TextEditingController latController = TextEditingController();
+    TextEditingController lonController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Search by Coordinates'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: latController,
+                  decoration: const InputDecoration(
+                    labelText: 'Latitude',
+                    hintText: 'Enter latitude (-90 to 90)',
+                  ),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: lonController,
+                  decoration: const InputDecoration(
+                    labelText: 'Longitude',
+                    hintText: 'Enter longitude (-180 to 180)',
+                  ),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  double? lat = double.tryParse(latController.text);
+                  double? lon = double.tryParse(lonController.text);
+
+                  if (lat != null &&
+                      lon != null &&
+                      lat >= -90 &&
+                      lat <= 90 &&
+                      lon >= -180 &&
+                      lon <= 180) {
+                    Navigator.pop(context);
+                    _fetchWeatherByCoordinates(lat, lon);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Invalid coordinates')),
+                    );
+                  }
+                },
+                child: const Text('Search'),
+              ),
+            ],
           ),
     );
   }

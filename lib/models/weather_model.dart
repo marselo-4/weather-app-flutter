@@ -1,4 +1,6 @@
 //weather Model
+import 'package:weather_app/models/air_pollution_model.dart';
+
 class Weather {
   final String cityName;
   final double temperature;
@@ -10,6 +12,10 @@ class Weather {
   final int visibility; // in meters
   final DateTime sunrise;
   final DateTime sunset;
+  final int? airQualityIndex;
+  final AirPollution? airPollution;
+  final double latitude;
+  final double longitude;
 
   Weather({
     required this.cityName,
@@ -22,6 +28,10 @@ class Weather {
     required this.visibility,
     required this.sunrise,
     required this.sunset,
+    required this.latitude,
+    required this.longitude,
+    this.airQualityIndex,
+    this.airPollution,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
@@ -34,10 +44,17 @@ class Weather {
       windDirection: json['wind']['deg'],
       pressure: json['main']['pressure'],
       visibility: json['visibility'] ?? 0,
+      latitude: json['coord']['lat'].toDouble(),
+      longitude: json['coord']['lon'].toDouble(),
       sunrise: DateTime.fromMillisecondsSinceEpoch(
         json['sys']['sunrise'] * 1000,
       ),
       sunset: DateTime.fromMillisecondsSinceEpoch(json['sys']['sunset'] * 1000),
+      airQualityIndex: json['air_quality_index'],
+      airPollution:
+          json['air_pollution'] != null
+              ? AirPollution.fromJson(json['air_pollution'])
+              : null,
     );
   }
 }

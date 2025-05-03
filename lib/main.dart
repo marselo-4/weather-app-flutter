@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Preload cities data
   await CityDataCache().loadCities();
-  
+
   runApp(const WeatherApp());
 }
 

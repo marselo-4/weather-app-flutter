@@ -17,9 +17,7 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
         children: [
           Center(
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                customPrimaryColor, 
-              ),
+              valueColor: AlwaysStoppedAnimation<Color>(customPrimaryColor),
             ),
           ),
           const SizedBox(height: 20),
@@ -135,6 +133,84 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
             ],
           ),
         ),
+
+        const SizedBox(height: 25),
+        // Air Quality container
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: _getAirQualityColors(weather!.airQualityIndex ?? 0),
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: _getAirQualityColors(
+                  weather!.airQualityIndex ?? 0,
+                )[0].withAlpha(62),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.air_rounded, color: Colors.white, size: 32),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Air Quality Index',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${weather!.airQualityIndex ?? "N/A"}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                height: 60,
+                width: 1.5,
+                color: Colors.white.withAlpha(60),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.health_and_safety_outlined,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Health Impact',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    _getAirQualityStatus(weather!.airQualityIndex ?? 0),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -237,5 +313,49 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
   // Helper to format DateTime to time string (e.g., 9:00 AM)
   String _formatTime(DateTime time) {
     return DateFormat.jm().format(time);
+  }
+
+  List<Color> _getAirQualityColors(int aqi) {
+    print('Current AQI value: $aqi'); // Debug print
+    switch (aqi) {
+      case 1:
+        return [
+          const Color(0xFF50F0E6),
+          const Color(0xFF00E3FF),
+        ]; // Good - Cyan
+      case 2:
+        return [
+          const Color(0xFF50C878),
+          const Color(0xFF00B050),
+        ]; // Fair - Green
+      case 3:
+        return [
+          const Color(0xFFFFD700),
+          const Color(0xFFFFA500),
+        ]; // Moderate - Yellow
+      case 4:
+        return [const Color(0xFFFF6B6B), const Color(0xFFFF0000)]; // Poor - Red
+      default:
+        return [
+          const Color(0xFF8B0000),
+          const Color(0xFF800000),
+        ]; // Very Poor - Dark Red
+    }
+  }
+
+  String _getAirQualityStatus(int aqi) {
+    print('Getting status for AQI: $aqi'); // Debug print
+    switch (aqi) {
+      case 1:
+        return 'Good';
+      case 2:
+        return 'Fair';
+      case 3:
+        return 'Moderate';
+      case 4:
+        return 'Poor';
+      default:
+        return 'Very Poor';
+    }
   }
 }
