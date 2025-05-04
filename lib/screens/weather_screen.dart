@@ -8,6 +8,7 @@ import 'package:weather_app/services/weather_service.dart';
 import 'package:weather_app/widgets/weather_display.dart';
 import 'package:weather_app/widgets/search_options_sheet.dart';
 import 'package:weather_app/utils/weather_utils.dart';
+import 'package:weather_app/widgets/custom_drawer.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -183,6 +184,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const CustomDrawer(),
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Weather App'),
