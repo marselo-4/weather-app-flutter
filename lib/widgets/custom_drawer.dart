@@ -37,10 +37,6 @@ class CustomDrawer extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      'Weather Forecast',
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
-                    ),
                   ],
                 ),
               ],
@@ -56,22 +52,24 @@ class CustomDrawer extends StatelessWidget {
                   text: 'Current Location',
                   badge: 1,
                   onTap: () => Navigator.pop(context),
+                  enabled: false,
                 ),
+
                 _buildMenuItem(
                   icon: Icons.favorite_outline,
                   text: 'Saved Locations',
                   onTap: () {
                     Navigator.pop(context);
-                    // TODO: Navigate to saved locations
                   },
+                  enabled: false,
                 ),
                 _buildMenuItem(
                   icon: Icons.history_outlined,
                   text: 'Search History',
                   onTap: () {
                     Navigator.pop(context);
-                    // TODO: Navigate to search history
                   },
+                  enabled: false,
                 ),
                 _buildMenuItem(
                   icon: Icons.notifications_outlined,
@@ -79,8 +77,8 @@ class CustomDrawer extends StatelessWidget {
                   badge: 3,
                   onTap: () {
                     Navigator.pop(context);
-                    // TODO: Navigate to weather alerts
                   },
+                  enabled: false,
                 ),
                 const Divider(),
                 _buildMenuItem(
@@ -104,8 +102,8 @@ class CustomDrawer extends StatelessWidget {
                   text: 'Settings',
                   onTap: () {
                     Navigator.pop(context);
-                    // TODO: Navigate to settings
                   },
+                  enabled: false,
                 ),
               ],
             ),
@@ -115,15 +113,16 @@ class CustomDrawer extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                Icon(Icons.brightness_6_outlined, color: Colors.grey[600]),
+                Icon(Icons.brightness_6_outlined, color: Colors.grey[400]),
                 const SizedBox(width: 12),
-                const Text('Dark Mode'),
+                Text('Dark Mode', style: TextStyle(color: Colors.grey[400])),
                 const Spacer(),
                 Switch(
                   value: false,
-                  onChanged: (value) {
-                    // TODO: Implement dark mode
-                  },
+                  onChanged: null,
+                  activeColor: Colors.grey[400],
+                  inactiveTrackColor: Colors.grey[300],
+                  inactiveThumbColor: Colors.grey[400],
                 ),
               ],
             ),
@@ -138,16 +137,26 @@ class CustomDrawer extends StatelessWidget {
     required String text,
     required VoidCallback onTap,
     int? badge,
+    bool enabled = true, // nuevo parámetro
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
-        onTap: onTap,
+        onTap: enabled ? onTap : null,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        leading: Icon(icon, color: Colors.grey[600]),
-        title: Text(text, style: const TextStyle(fontSize: 16)),
+        leading: Icon(
+          icon,
+          color: enabled ? Colors.grey[600] : Colors.grey[400],
+        ),
+        title: Text(
+          text,
+          style: TextStyle(
+            fontSize: 16,
+            color: enabled ? Colors.black : Colors.grey[400],
+          ),
+        ),
         trailing:
-            badge != null
+            badge != null && enabled
                 ? Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
