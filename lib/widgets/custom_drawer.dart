@@ -91,7 +91,7 @@ class CustomDrawer extends StatelessWidget {
                       MaterialPageRoute(
                         builder:
                             (context) => const WeatherMapScreen(
-                              apiKey: 'ed0016d9786e04cd0b5344c45d3e32cf',
+                              apiKey: '117c225d3b7af650b6792e6fbbb07137',
                             ),
                       ),
                     );
@@ -137,7 +137,7 @@ class CustomDrawer extends StatelessWidget {
     required String text,
     required VoidCallback onTap,
     int? badge,
-    bool enabled = true, // nuevo parámetro
+    bool enabled = true,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),

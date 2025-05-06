@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:weather_app/models/weather_model.dart'; // Ensure this import is correct
+import 'package:weather_app/models/weather_model.dart';
 
 class WeatherMainInfoWidget extends StatelessWidget {
   final Weather? weather;
@@ -14,20 +14,15 @@ class WeatherMainInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Show loading state if weather data is null
     if (weather == null) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Lottie.asset(
-            animationPath,
-            width: 200,
-            height: 200,
-          ), 
+          Lottie.asset(animationPath, width: 200, height: 200),
           const SizedBox(height: 20),
           const Text(
-            "Fetching data...", 
+            "Fetching data...",
             style: TextStyle(
               fontSize: 20,
               fontStyle: FontStyle.italic,
@@ -40,7 +35,6 @@ class WeatherMainInfoWidget extends StatelessWidget {
 
     return Column(
       children: [
-        
         Hero(
           tag: 'city-name',
           child: Material(
@@ -57,8 +51,7 @@ class WeatherMainInfoWidget extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 20), 
-        // Weather animation
+        const SizedBox(height: 20),
         Hero(
           tag: 'weather-animation',
           child: Lottie.asset(
@@ -69,8 +62,7 @@ class WeatherMainInfoWidget extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 12), 
-        // Temperature
+        const SizedBox(height: 12),
         Hero(
           tag: 'temperature',
           child: Material(
@@ -86,8 +78,7 @@ class WeatherMainInfoWidget extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 8), 
-        // Weather condition
+        const SizedBox(height: 8),
         Hero(
           tag: 'weather-condition',
           child: Material(

@@ -1,5 +1,3 @@
-// weather screen main logic file
-
 import 'package:weather_app/widgets/city_search_dialog.dart';
 import 'package:weather_app/widgets/country_city_picker_dialog.dart';
 import 'package:flutter/material.dart';
@@ -201,7 +199,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
       backgroundColor: const Color.fromARGB(255, 233, 233, 233),
       body: Column(
         children: [
-          // Location indicator
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
@@ -217,7 +214,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
             ),
           ),
 
-          // Main content area - Weather display component
           Expanded(
             child: WeatherDisplay(
               weather: _weather,

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Preload cities data
   await CityDataCache().loadCities();
 
   runApp(const WeatherApp());
@@ -32,7 +31,7 @@ class WeatherApp extends StatelessWidget {
         '/': (context) => const WeatherScreen(),
         '/map':
             (context) => const WeatherMapScreen(
-              apiKey: 'ed0016d9786e04cd0b5344c45d3e32cf',
+              apiKey: '117c225d3b7af650b6792e6fbbb07137',
             ),
       },
     );

@@ -1,5 +1,3 @@
-// search options sheet
-
 import 'package:flutter/material.dart';
 
 class SearchOptionsSheet extends StatelessWidget {

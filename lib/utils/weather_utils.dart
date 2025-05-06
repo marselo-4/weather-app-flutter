@@ -1,5 +1,3 @@
-// this file contains lottie animations' logic
-
 String getWeatherAnimation(String? condition) {
   if (condition == null) return 'lib/assets/Sunny.json';
 

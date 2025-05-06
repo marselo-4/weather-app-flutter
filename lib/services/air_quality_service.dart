@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AirQualityService {
-  final String apiKey = 'TU_API_KEY';
+  final String apiKey = '117c225d3b7af650b6792e6fbbb07137';
   final String baseUrl = 'http://api.openweathermap.org/data/2.5/air_pollution';
 
   Future<Map<String, dynamic>> getAirQualityByCoordinates(

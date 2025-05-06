@@ -37,7 +37,6 @@ class AirPollution {
         levels.add(AirQualityLevel.veryPoor);
     }
 
-    // Similar checks for other pollutants
     if (no2 != null) {
       if (no2! < 40)
         levels.add(AirQualityLevel.good);
@@ -51,7 +50,6 @@ class AirPollution {
         levels.add(AirQualityLevel.veryPoor);
     }
 
-    // Return the worst air quality level found
     if (levels.isEmpty) return AirQualityLevel.good;
     return levels.reduce((curr, next) => curr.index > next.index ? curr : next);
   }

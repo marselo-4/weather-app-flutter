@@ -1,5 +1,3 @@
-// this file contains the code for search by name option
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

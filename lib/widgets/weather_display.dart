@@ -23,7 +23,6 @@ class WeatherDisplay extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Location and main weather info 
             WeatherMainInfoWidget(
               weather: weather,
               animationPath: animationPath,
@@ -31,7 +30,6 @@ class WeatherDisplay extends StatelessWidget {
 
             const SizedBox(height: 40),
 
-            // Weather details cards 
             WeatherDetailsCardsWidget(weather: weather),
           ],
         ),

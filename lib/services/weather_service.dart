@@ -60,7 +60,6 @@ class WeatherService {
     return city ?? "";
   }
 
-  // Obtener las coordenadas de una ciudad
   Future<List<double>> getCityCoordinates(String cityName) async {
     try {
       List<Location> locations = await locationFromAddress(cityName);
@@ -76,7 +75,6 @@ class WeatherService {
     }
   }
 
-  // Obtener el clima por coordenadas
   Future<Weather> getWeatherByCoordinates(double lat, double lon) async {
     final response = await http.get(
       Uri.parse('$baseURL?lat=$lat&lon=$lon&appid=$apiKey&units=metric'),
@@ -86,7 +84,6 @@ class WeatherService {
       Map<String, dynamic> weatherData = jsonDecode(response.body);
 
       try {
-        // Obtener datos de calidad del aire
         final airQualityData = await getAirQuality(lat, lon);
         weatherData['air_quality_index'] =
             airQualityData['list'][0]['main']['aqi'];

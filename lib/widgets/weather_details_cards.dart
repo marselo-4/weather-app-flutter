@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/models/weather_model.dart'; // Ensure this import is correct
-import 'package:intl/intl.dart'; // Needed for date formatting
-import 'package:weather_app/constants.dart'; // Import the constants file
+import 'package:weather_app/models/weather_model.dart';
+import 'package:intl/intl.dart';
+import 'package:weather_app/constants.dart';
 
 class WeatherDetailsCardsWidget extends StatelessWidget {
   final Weather? weather;
@@ -10,7 +10,6 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Show loading state if weather data is null
     if (weather == null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +40,6 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
           ),
         ),
 
-        // Primary details row
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,7 +63,6 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
         ),
 
         const SizedBox(height: 16),
-        // Secondary details row
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -88,14 +85,10 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
         ),
 
         const SizedBox(height: 25),
-        // Sun times container
         Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [
-                Color(0xFFFFB74D), // Light Orange
-                Color(0xFFFB8C00), // Darker Orange
-              ],
+              colors: [Color(0xFFFFB74D), Color(0xFFFB8C00)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -118,7 +111,6 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
                 'Sunrise',
                 _formatTime(weather!.sunrise),
               ),
-              // Divider
               Container(
                 height: 60,
                 width: 1.5,
@@ -135,7 +127,6 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
         ),
 
         const SizedBox(height: 25),
-        // Air Quality container
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -215,7 +206,6 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
     );
   }
 
-  // Helper widget for individual detail cards
   Widget _buildDetailCard(
     BuildContext context,
     IconData icon,
@@ -242,11 +232,7 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              icon,
-              size: 24,
-              color: customPrimaryColor, // Use the constant
-            ),
+            Icon(icon, size: 24, color: customPrimaryColor),
             const SizedBox(height: 12),
             Text(
               label,
@@ -274,7 +260,6 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
     );
   }
 
-  // Helper widget for sun time columns
   Widget _buildSunTimeColumn(
     BuildContext context,
     IconData icon,
@@ -303,48 +288,34 @@ class WeatherDetailsCardsWidget extends StatelessWidget {
     );
   }
 
-  // Helper to get wind direction abbreviation
   String _getWindDirection(int degrees) {
     const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
     int index = ((degrees % 360) / 45).round() % 8;
     return directions[index];
   }
 
-  // Helper to format DateTime to time string (e.g., 9:00 AM)
   String _formatTime(DateTime time) {
     return DateFormat.jm().format(time);
   }
 
   List<Color> _getAirQualityColors(int aqi) {
-    print('Current AQI value: $aqi'); // Debug print
+    print('Current AQI value: $aqi');
     switch (aqi) {
       case 1:
-        return [
-          const Color(0xFF50F0E6),
-          const Color(0xFF00E3FF),
-        ]; // Good - Cyan
+        return [const Color(0xFF50F0E6), const Color(0xFF00E3FF)];
       case 2:
-        return [
-          const Color(0xFF50C878),
-          const Color(0xFF00B050),
-        ]; // Fair - Green
+        return [const Color(0xFF50C878), const Color(0xFF00B050)];
       case 3:
-        return [
-          const Color(0xFFFFD700),
-          const Color(0xFFFFA500),
-        ]; // Moderate - Yellow
+        return [const Color(0xFFFFD700), const Color(0xFFFFA500)];
       case 4:
-        return [const Color(0xFFFF6B6B), const Color(0xFFFF0000)]; // Poor - Red
+        return [const Color(0xFFFF6B6B), const Color(0xFFFF0000)];
       default:
-        return [
-          const Color(0xFF8B0000),
-          const Color(0xFF800000),
-        ]; // Very Poor - Dark Red
+        return [const Color(0xFF8B0000), const Color(0xFF800000)];
     }
   }
 
   String _getAirQualityStatus(int aqi) {
-    print('Getting status for AQI: $aqi'); // Debug print
+    print('Getting status for AQI: $aqi');
     switch (aqi) {
       case 1:
         return 'Good';

@@ -1,4 +1,3 @@
-//weather Model
 import 'package:weather_app/models/air_pollution_model.dart';
 
 class Weather {
@@ -7,9 +6,9 @@ class Weather {
   final String condition;
   final int humidity;
   final double windSpeed;
-  final int windDirection; // in degrees
-  final int pressure; // in hPa
-  final int visibility; // in meters
+  final int windDirection;
+  final int pressure;
+  final int visibility;
   final DateTime sunrise;
   final DateTime sunset;
   final int? airQualityIndex;
