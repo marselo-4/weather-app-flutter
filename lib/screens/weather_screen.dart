@@ -1,3 +1,4 @@
+import 'package:weather_app/constants.dart';
 import 'package:weather_app/widgets/city_search_dialog.dart';
 import 'package:weather_app/widgets/country_city_picker_dialog.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:weather_app/widgets/weather_display.dart';
 import 'package:weather_app/widgets/search_options_sheet.dart';
 import 'package:weather_app/utils/weather_utils.dart';
 import 'package:weather_app/widgets/custom_drawer.dart';
+import 'package:weather_app/widgets/weather_forecast_widget.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -185,7 +187,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
       drawer: const CustomDrawer(),
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text('Weather App'),
+        title: const Text(
+          'Weather App',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.5,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         actions: [
@@ -197,30 +206,36 @@ class _WeatherScreenState extends State<WeatherScreen> {
         ],
       ),
       backgroundColor: const Color.fromARGB(255, 233, 233, 233),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.location_pin, size: 16, color: Colors.grey),
-                const SizedBox(width: 8),
-                Text(
-                  _currentSearchType,
-                  style: const TextStyle(color: Colors.grey),
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.location_pin, size: 16, color: Colors.grey),
+                  const SizedBox(width: 8),
+                  Text(
+                    _currentSearchType,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
-          ),
-
-          Expanded(
-            child: WeatherDisplay(
+            WeatherDisplay(
               weather: _weather,
               animationPath: getWeatherAnimation(_weather?.condition),
             ),
-          ),
-        ],
+            if (_weather != null)
+              WeatherForecastWidget(
+                city:
+                    _currentSearchType == 'Current Location'
+                        ? _weather!.cityName
+                        : _currentSearchType,
+              ),
+          ],
+        ),
       ),
     );
   }

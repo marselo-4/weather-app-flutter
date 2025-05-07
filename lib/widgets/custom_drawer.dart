@@ -47,14 +47,13 @@ class CustomDrawer extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               children: [
-                _buildMenuItem(
-                  icon: Icons.location_on_outlined,
-                  text: 'Current Location',
-                  badge: 1,
-                  onTap: () => Navigator.pop(context),
-                  enabled: false,
-                ),
-
+                // _buildMenuItem(
+                //   icon: Icons.location_on_outlined,
+                //   text: 'Current Location',
+                //   badge: 1,
+                //   onTap: () => Navigator.pop(context),
+                //   enabled: false,
+                // ),
                 _buildMenuItem(
                   icon: Icons.favorite_outline,
                   text: 'Saved Locations',
